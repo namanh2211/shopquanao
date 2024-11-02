@@ -1,14 +1,7 @@
 <?php
 include 'header.php';
+include 'nav.php';
+include 'footer.php';
 ?>
-
-
-   <?php
-   include 'nav.php';
-   ?>
-
-    <?php
-    include 'footer.php';
-    ?>
 
    

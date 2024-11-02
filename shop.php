@@ -355,11 +355,7 @@ include 'header.php';
                                     <small class="fa fa-star-half-alt text-primary mr-1"></small>
                                     <small class="far fa-star text-primary mr-1"></small>
                                     <small>(99)</small>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="img/product-8.jpg" alt="">
