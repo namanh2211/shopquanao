@@ -9,8 +9,8 @@ include 'header.php';
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                <a class="breadcrumb-item text-dark" href="index.php">Home</a>
+                <a class="breadcrumb-item text-dark" href="shop.php">Shop</a>
                 <span class="breadcrumb-item active">Shopping Cart</span>
             </nav>
         </div>
@@ -184,7 +184,9 @@ include 'header.php';
                         <h5>Total</h5>
                         <h5>$160</h5>
                     </div>
+                    <a href="checkout.php">
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                    </a>
                 </div>
             </div>
         </div>
