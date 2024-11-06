@@ -41,10 +41,10 @@
         <div class="flex-grow-1 p-4" id="content">
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>QUẢN LÝ Thanh Toán</h2>
+                <h2>QUẢN LÝ ĐƠN HÀNG</h2>
                 <div>
                     <a href="#" class="me-3 text-decoration-none">Trang chủ</a>
-                    <span> > Danh sách Thanh Toán</span>
+                    <span> > Danh sách đơn hàng</span>
                 </div>
                 <div class="avatar bg-warning rounded-circle" style="width: 40px; height: 40px;"></div>
             </div>

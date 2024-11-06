@@ -41,7 +41,7 @@
         <div class="flex-grow-1 p-4" id="content">
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>QUẢN LÝ Thanh Toán</h2>
+                <h2>QUẢN LÝ THANH TOÁN</h2>
                 <div>
                     <a href="#" class="me-3 text-decoration-none">Trang chủ</a>
                     <span> > Danh sách Thanh Toán</span>
