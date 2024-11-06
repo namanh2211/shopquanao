@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 ?>
 <div class="container mt-5">
@@ -60,6 +60,6 @@ include 'header.php';
             </div>
         </div>
     </div>
-    <?
+    <?php
 include 'footer.php';
 ?>
