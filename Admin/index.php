@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -20,35 +20,19 @@
                     <a class="nav-link text-white" href="./index.php">Thống kê</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white active" href="#">Loại sản phẩm</a>
-                    <!-- Menu con cho Loại sản phẩm -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./category_list.php">Danh sách loại sản phẩm</a>
-                        <a class="nav-link text-white" href="./add_category.php">Thêm loại sản phẩm</a>
-                    </div>
+                    <a class="nav-link text-white active" href="./category_list.php">Loại sản phẩm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Sản phẩm</a>
-                    <!-- Menu con cho Sản phẩm -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./product_list.php">Danh sách sản phẩm</a>
-                        <a class="nav-link text-white" href="./add_product.php">Thêm sản phẩm</a>
-                    </div>
+                    <a class="nav-link text-white" href="./product_list.php">Sản phẩm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Người dùng</a>
-                    <!-- Menu con cho Người dùng -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./user_list.php">Danh sách người dùng</a>
-                        <a class="nav-link text-white" href="./add_user.php">Thêm người dùng</a>
-                    </div>
+                    <a class="nav-link text-white" href="./user_list.php">Người dùng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Bình luận</a>
-                    <!-- Menu con cho Bình luận -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./comment_list.php">Danh sách bình luận</a>
-                    </div>
+                    <a class="nav-link text-white" href="./payments_list.php">Thanh Toán</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="./orders_list.php">Đơn hàng</a>
                 </li>
             </ul>
         </div>
@@ -95,7 +79,7 @@
                     <div class="card bg-danger text-white">
                         <div class="card-body text-center">
                             <h5><i class="bi bi-chat-dots"></i> 5</h5>
-                            <p>Bình luận</p>
+                            <p>Đơn hàng</p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +101,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5>5 sản phẩm được bình luận nhiều nhất</h5>
+                            <h5>5 sản phẩm được mua hàng nhiều nhất</h5>
                             <div class="chart-placeholder">
                                 <!-- Placeholder for Bar Chart -->
                                 <p class="text-center">Biểu đồ cột</p>
