@@ -12,49 +12,9 @@
 <body>
 
     <div class="d-flex">
-        <!-- Sidebar -->
-        <div class="bg-dark text-white p-3" id="sidebar" style="width: 250px;">
-            <h3 class="text-center">Matrix Admin</h3>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="./index.php">Thống kê</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white active" href="#">Loại sản phẩm</a>
-                    <!-- Menu con cho Loại sản phẩm -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./category_list.php">Danh sách loại sản phẩm</a>
-                        <a class="nav-link text-white" href="./add_category.php">Thêm loại sản phẩm</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Sản phẩm</a>
-                    <!-- Menu con cho Sản phẩm -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./product_list.php">Danh sách sản phẩm</a>
-                        <a class="nav-link text-white" href="./add_product.php">Thêm sản phẩm</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Người dùng</a>
-                    <!-- Menu con cho Người dùng -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./user_list.php">Danh sách người dùng</a>
-                        <a class="nav-link text-white" href="./add_user.php">Thêm người dùng</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="./payments_list.php">Thanh Toán</a>
-                    <!-- Menu con cho Bình luận -->
-                    <div class="sub-menu">
-                        <a class="nav-link text-white" href="./comment_list.php">Danh sách bình luận</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="./orders_list.php">Đơn hàng</a>
-                </li>
-            </ul>
-        </div>
+        <?php
+            include 'sidebar.php';
+        ?>
 
         <!-- Content -->
         <div class="flex-grow-1 p-4" id="content">
