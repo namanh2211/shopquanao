@@ -138,10 +138,19 @@
                                 <span class="badge text-secondary border border-secondary rounded-circle"
                                     style="padding-bottom: 2px;">0</span>
                             </a>
-                            <!-- Nút Register và Login -->
-                            <a href="login.php" class="btn px-0 ml-3">
-                                <i class="fas fa-user text-primary"></i>
-                            </a>
+                            <!-- Nút Register và Login/Logout -->
+                            <?php if (isset($_SESSION['user'])): ?>
+                                <!-- Hiển thị tên người dùng và nút đăng xuất nếu đã đăng nhập -->
+                                <span class="user-login text-white px-0 ml-3">Xin chào,
+                                    <?php echo htmlspecialchars($_SESSION['user']['full_name']); ?></span>
+                                <a href="logout.php" class="btn btn-outline-light btn-sm ml-2">Đăng xuất</a>
+                            <?php else: ?>
+                                <!-- Hiển thị nút đăng nhập nếu chưa đăng nhập -->
+                                <a href="login.php" class="user-login text-white px-0 ml-3">
+                                    <i class="fas fa-user text-primary"></i> Đăng nhập
+                                </a>
+                            <?php endif; ?>
+
                         </div>
                     </div>
                 </nav>
