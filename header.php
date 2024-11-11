@@ -117,9 +117,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
-
         <div class="row px-xl-5">
-
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
