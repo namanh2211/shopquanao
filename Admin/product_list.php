@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+// Nhúng file kết nối cơ sở dữ liệu
+include 'database.php';
+
+// Lấy danh sách sản phẩm và tên danh mục từ cơ sở dữ liệu
+$sql = "SELECT products.*, categories.category_name 
+        FROM products 
+        INNER JOIN categories ON products.category_id = categories.id"; // JOIN giữa products và categories
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,11 +30,21 @@
 
     <div class="d-flex">
         <?php
-            include 'sidebar.php';
+        include 'sidebar.php';
         ?>
 
         <!-- Content -->
         <div class="flex-grow-1 p-4" id="content">
+
+            <?php
+
+            if (isset($_SESSION['message'])) {
+                echo '<div class="alert alert-success">';
+                echo $_SESSION['message'];
+                echo '</div>';
+                unset($_SESSION['message']); // Xóa thông báo sau khi đã hiển thị
+            }
+            ?>
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>QUẢN LÝ SẢN PHẨM</h2>
@@ -63,10 +90,10 @@
                     <h5>Danh sách sản phẩm</h5>
                     <table class="table table-bordered mt-3">
                         <thead class="table-light">
-                            <tr>
+                            <tr class="text-align-center">
                                 <th>ID</th>
                                 <th>Tên Sản phẩm</th>
-                                <th>Loại sản phẩm</th>
+                                <th>Danh mục</th>
                                 <th>Mô tả</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
@@ -76,103 +103,53 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Example Row 1 -->
-                            <tr>
-                                <td>1</td>
-                                <td><a href="#" class="text-decoration-none">Áo sơ mi nam</a></td>
-                                <td>Áo</td>
-                                <td>Mô tả chi tiết về áo sơ mi nam...</td>
-                                <td>200,000₫</td>
-                                <td>50</td>
-                                <td><img src="path/to/image1.jpg" alt="Áo sơ mi nam" width="50"></td>
-                                <td>01/11/2024</td>
-                                <td>
-                                    <a href="./edit_product.php" class="btn btn-warning btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <!-- Example Row 2 -->
-                            <tr>
-                                <td>2</td>
-                                <td><a href="#" class="text-decoration-none">Quần jean nam</a></td>
-                                <td>Quần</td>
-                                <td>Mô tả chi tiết về quần jean nam...</td>
-                                <td>300,000₫</td>
-                                <td>30</td>
-                                <td><img src="path/to/image2.jpg" alt="Quần jean nam" width="50"></td>
-                                <td>05/11/2024</td>
-                                <td>
-                                    <a href="./edit_product.php" class="btn btn-warning btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <!-- Example Row 3 -->
-                            <tr>
-                                <td>3</td>
-                                <td><a href="#" class="text-decoration-none">Áo thun nữ</a></td>
-                                <td>Áo</td>
-                                <td>Mô tả chi tiết về áo thun nữ...</td>
-                                <td>150,000₫</td>
-                                <td>40</td>
-                                <td><img src="path/to/image3.jpg" alt="Áo thun nữ" width="50"></td>
-                                <td>10/11/2024</td>
-                                <td>
-                                    <a href="./edit_product.php" class="btn btn-warning btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <!-- Example Row 4 -->
-                            <tr>
-                                <td>4</td>
-                                <td><a href="#" class="text-decoration-none">Đầm nữ</a></td>
-                                <td>Đầm</td>
-                                <td>Mô tả chi tiết về đầm nữ...</td>
-                                <td>400,000₫</td>
-                                <td>20</td>
-                                <td><img src="path/to/image4.jpg" alt="Đầm nữ" width="50"></td>
-                                <td>15/11/2024</td>
-                                <td>
-                                    <a href="./edit_product.php" class="btn btn-warning btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <!-- Example Row 5 -->
-                            <tr>
-                                <td>5</td>
-                                <td><a href="#" class="text-decoration-none">Giày thể thao</a></td>
-                                <td>Giày</td>
-                                <td>Mô tả chi tiết về giày thể thao...</td>
-                                <td>500,000₫</td>
-                                <td>25</td>
-                                <td><img src="path/to/image5.jpg" alt="Giày thể thao" width="50"></td>
-                                <td>20/11/2024</td>
-                                <td>
-                                    <a href="./edit_product.php" class="btn btn-warning btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <!-- Example Row 6 -->
-                            <tr>
-                                <td>6</td>
-                                <td><a href="#" class="text-decoration-none">Mũ lưỡi trai</a></td>
-                                <td>Phụ kiện</td>
-                                <td>Mô tả chi tiết về mũ lưỡi trai...</td>
-                                <td>100,000₫</td>
-                                <td>60</td>
-                                <td><img src="path/to/image6.jpg" alt="Mũ lưỡi trai" width="50"></td>
-                                <td>25/11/2024</td>
-                                <td>
-                                    <a href="./edit_product.php" class="btn btn-warning btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
+                            <?php
+                            $stt = 1;
+                            foreach ($products as $product): ?> 
+                                <tr>
+                                    <td><?php echo $stt++; ?></td>
+                                    <td><a href="./product_detail.php?id=<?= $product['id']; ?>" class="text-decoration-none"><?= $product['product_name']; ?></a></td>
+                                    <td><?= $product['category_name']; ?></td> <!-- Lấy tên danh mục -->
+                                    <td>
+                                        <?= (str_word_count($product['description']) > 7) ? implode(' ', array_slice(explode(' ', $product['description']), 0, 7)) . '...' : $product['description']; ?>
+                                    </td>
+
+                                    <td>$ <?= number_format($product['price'], 0, ',', '.'); ?></td>
+                                    <td><?= $product['stock']; ?></td>
+                                    <td><img src="uploads/<?= $product['image']; ?>" alt="<?= $product['name']; ?>" width="100"></td>
+                                    <td><?= date('d/m/Y', strtotime($product['created_at'])); ?></td>
+                                    <td>
+                                        <a href="./edit_product.php?id=<?= $product['id']; ?>" class="btn btn-warning btn-sm">Sửa</a>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(<?= $product['id']; ?>)">Xóa</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
+
 
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function deleteProduct(productId) {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                fetch(`delete_product.php?id=${productId}`, {
+                        method: 'GET'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            location.reload(); // Tải lại trang để cập nhật danh sách sản phẩm
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

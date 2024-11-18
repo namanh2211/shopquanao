@@ -1,3 +1,11 @@
+<?php
+session_start();
+include 'database.php'; // Kết nối cơ sở dữ liệu
+
+// Lấy dữ liệu người dùng từ cơ sở dữ liệu
+$stmt = $conn->query("SELECT * FROM users"); // Lấy tất cả người dùng
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,11 +21,21 @@
 
     <div class="d-flex">
         <?php
-            include 'sidebar.php';
+        include 'sidebar.php'; // Giao diện sidebar
         ?>
 
         <!-- Content -->
         <div class="flex-grow-1 p-4" id="content">
+
+            <?php
+            if (isset($_SESSION['message'])) {
+                echo '<div class="alert alert-success">';
+                echo $_SESSION['message'];
+                echo '</div>';
+                unset($_SESSION['message']); // Xóa thông báo sau khi đã hiển thị
+            }
+            ?>
+
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>QUẢN LÝ NGƯỜI DÙNG</h2>
@@ -43,96 +61,27 @@
                                 <th>Tên đăng nhập</th>
                                 <th>Email</th>
                                 <th>Tên đầy đủ</th>
-                                <th>Địa chỉ</th>
-                                <th>Số điện thoại</th>
+                                <th>Vai trò</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>nguyenvana</td>
-                                <td>vana@example.com</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>123 Đường ABC, Quận 1, TP.HCM</td>
-                                <td>0123456789</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>tranthib</td>
-                                <td>thib@example.com</td>
-                                <td>Trần Thị B</td>
-                                <td>456 Đường DEF, Quận 2, TP.HCM</td>
-                                <td>0987654321</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>phamquangc</td>
-                                <td>quangc@example.com</td>
-                                <td>Phạm Quang C</td>
-                                <td>789 Đường GHI, Quận 3, TP.HCM</td>
-                                <td>0123451234</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>lethid</td>
-                                <td>thid@example.com</td>
-                                <td>Lê Thị D</td>
-                                <td>101 Đường JKL, Quận 4, TP.HCM</td>
-                                <td>0987654322</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>nguyentrane</td>
-                                <td>trane@example.com</td>
-                                <td>Nguyễn Trần E</td>
-                                <td>102 Đường MNO, Quận 5, TP.HCM</td>
-                                <td>0123456788</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>doanphif</td>
-                                <td>phif@example.com</td>
-                                <td>Đoàn Phi F</td>
-                                <td>103 Đường PQR, Quận 6, TP.HCM</td>
-                                <td>0987651234</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>phamthig</td>
-                                <td>thig@example.com</td>
-                                <td>Phạm Thị G</td>
-                                <td>104 Đường STU, Quận 7, TP.HCM</td>
-                                <td>0123456787</td>
-                                <td>
-                                    <a href="./edit_user.php" class="btn btn-primary btn-sm">Sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xóa</button>
-                                </td>
-                            </tr>
+                            <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                    <td><?php echo htmlspecialchars($user['username']); ?></td>
+                                    <td><?php echo htmlspecialchars($user['email']); ?></td>
+                                    <td><?php echo htmlspecialchars($user['full_name']); ?></td>
+                                    <td>
+                                        <?php echo $user['role'] == 1 ? 'Admin' : 'Người dùng'; ?>
+                                    </td>
+                                    <td>
+                                        <a href="./edit_user.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Sửa</a>
+                                        <a href="./delete_user.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?')">Xóa</a>
+                                        <a href="./reset_password.php?id=<?php echo $user['id']; ?>" class="btn btn-warning btn-sm">Đặt lại mật khẩu</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

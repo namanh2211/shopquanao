@@ -1,3 +1,10 @@
+<?php
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+$old_data = $_SESSION['old_data'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old_data']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,13 +19,10 @@
 <body>
 
     <div class="d-flex">
-        <?php
-            include 'sidebar.php';
-        ?>
+        <?php include 'sidebar.php'; ?>
 
         <!-- Content -->
         <div class="flex-grow-1 p-4" id="content">
-            <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>THÊM NGƯỜI DÙNG</h2>
                 <div>
@@ -30,45 +34,55 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                <form action="add_user.php" method="POST">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Tên đăng nhập</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fullname" class="form-label">Tên đầy đủ</label>
-                        <input type="text" class="form-control" id="fullname" name="fullname" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Địa chỉ</label>
-                        <input type="text" class="form-control" id="address" name="address">
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Số điện thoại</label>
-                        <input type="text" class="form-control" id="phone" name="phone">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Vai trò</label>
-                        <select class="form-control" id="role" name="role">
-                            <option value="Admin">Quản trị viên</option>
-                            <option value="User">Người dùng</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Thêm người dùng</button>
-                    <a href="user_list.php" class="btn btn-secondary">Quay lại</a>
-                </form>
+                    <form action="save_add_user.php" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" id="username" name="username" value="<?= $old_data['username'] ?? '' ?>">
+                            <?php if (isset($errors['username'])): ?>
+                                <div class="text-danger"><?= $errors['username'] ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<?= $old_data['email'] ?? '' ?>">
+                            <?php if (isset($errors['email'])): ?>
+                                <div class="text-danger"><?= $errors['email'] ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label">Tên đầy đủ</label>
+                            <input type="text" class="form-control" id="fullname" name="fullname" value="<?= $old_data['fullname'] ?? '' ?>">
+                            <?php if (isset($errors['fullname'])): ?>
+                                <div class="text-danger"><?= $errors['fullname'] ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <?php if (isset($errors['password'])): ?>
+                                <div class="text-danger"><?= $errors['password'] ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                            <?php if (isset($errors['confirm_password'])): ?>
+                                <div class="text-danger"><?= $errors['confirm_password'] ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Quyền người dùng</label>
+                            <select class="form-control" id="role" name="role">
+                                <option value="0" <?= (isset($old_data['role']) && $old_data['role'] == 0) ? 'selected' : '' ?>>Người dùng</option>
+                                <option value="1" <?= (isset($old_data['role']) && $old_data['role'] == 1) ? 'selected' : '' ?>>Admin</option>
+                            </select>
+                            <?php if (isset($errors['role'])): ?>
+                                <div class="text-danger"><?= $errors['role'] ?></div>
+                            <?php endif; ?>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm người dùng</button>
+                        <a href="user_list.php" class="btn btn-secondary">Quay lại</a>
+                    </form>
                 </div>
             </div>
         </div>
