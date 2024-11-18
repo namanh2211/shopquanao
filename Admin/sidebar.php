@@ -2,13 +2,13 @@
     
     <!-- Sidebar -->
     <div class="bg-dark text-white p-3" id="sidebar" style="width: 250px;">
-        <h3 class="text-center">Matrix Admin</h3>
+        <h4 class="text-center" style="color: yellow;">HMT Shop Admin</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link text-white" href="./index.php">Thống kê</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white active" href="./category_list.php">Loại sản phẩm</a>
+                <a class="nav-link text-white active" href="./category_list.php">Danh mục</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="./product_list.php">Sản phẩm</a>
