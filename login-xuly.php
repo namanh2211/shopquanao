@@ -13,52 +13,36 @@ try {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
-    $hasError = false;
 
-    // Xử lý lỗi cho trường username
-    if (empty($username)) {
-        $_SESSION['error_username'] = "Vui lòng nhập tên người dùng.";
-        $hasError = true;
-    } else {
-        $_SESSION['username'] = $username; // Lưu lại giá trị của username để hiển thị lại nếu có lỗi
-    }
+    // Truy vấn để kiểm tra thông tin người dùng
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Xử lý lỗi cho trường password
-    if (empty($password)) {
-        $_SESSION['error_password'] = "Vui lòng nhập mật khẩu.";
-        $hasError = true;
-    }
+    // Kiểm tra thông tin đăng nhập
+    if ($user && password_verify($password, $user['password'])) {
+        // Đăng nhập thành công
+        $_SESSION['user'] = [
+            'id' => $user['id'],
+            'username' => $user['username'],
+            'full_name' => isset($user['full_name']) ? $user['full_name'] : ''
+        ];
 
-    // Nếu có lỗi, quay lại trang login
-    if ($hasError) {
-        header("Location: login.php");
+        // Kiểm tra xem có URL cần chuyển hướng lại không
+        if (isset($_SESSION['redirect_url'])) {
+            $redirect_url = $_SESSION['redirect_url'];
+            unset($_SESSION['redirect_url']); // Xóa session để tránh chuyển hướng không mong muốn sau này
+            header("Location: $redirect_url");
+        } else {
+            header("Location: index.php"); // Mặc định chuyển về trang chủ nếu không có URL
+        }
         exit();
     } else {
-        // Truy vấn để kiểm tra thông tin người dùng
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // Kiểm tra xem người dùng có tồn tại và mật khẩu có khớp không
-        if ($user && password_verify($password, $user['password'])) {
-            // Đăng nhập thành công
-            $_SESSION['user'] = [
-                'id' => $user['id'],
-                'username' => $user['username'],
-                'full_name' => isset($user['full_name']) ? $user['full_name'] : ''
-            ];
-            // Xóa thông tin lỗi
-            unset($_SESSION['error_username']);
-            unset($_SESSION['error_password']);
-            header("Location: index.php"); // Điều hướng tới trang chính
-            exit();
-        } else {
-            // Thông tin đăng nhập không chính xác
-            $_SESSION['error_password'] = "Tên người dùng hoặc mật khẩu không đúng.";
-            header("Location: login.php");
-            exit();
-        }
+        // Thông tin đăng nhập không chính xác
+        $_SESSION['error_message'] = "Tên người dùng hoặc mật khẩu không đúng.";
+        header("Location: login.php");
+        exit();
     }
 }
 ?>

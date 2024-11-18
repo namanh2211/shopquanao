@@ -3,8 +3,6 @@ include 'header.php';
 include 'shop-xuly.php'; // Include file để lấy danh sách sản phẩm và danh mục từ cơ sở dữ liệu
 ?>
 
-<!-- Navbar End -->
-
 <!-- Breadcrumb Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
@@ -55,8 +53,7 @@ include 'shop-xuly.php'; // Include file để lấy danh sách sản phẩm và
                                          src="<?php echo (isset($product['image_path']) && !empty($product['image_path'])) ? htmlspecialchars($product['image_path']) : 'img/default.jpg'; ?>" 
                                          alt="<?php echo isset($product['product_name']) ? htmlspecialchars($product['product_name']) : 'Product Image'; ?>">
                                     <div class="product-action">
-                                        <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
-                                        <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="cart-xuly.php?product_id=<?php echo $product['id']; ?>&selected_size=S&quantity=1"><i class="fa fa-shopping-cart"></i></a>                                        <a class="btn btn-outline-dark btn-square" href="favorite_product-xuly.php?action=add&id=<?php echo $product['id']; ?>"><i class="far fa-heart"></i></a>
                                         <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
                                         <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>
                                     </div>
@@ -120,8 +117,9 @@ include 'shop-xuly.php'; // Include file để lấy danh sách sản phẩm và
 </div>
 <!-- Shop End -->
 
-<!-- Footer Start -->
 <?php include 'footer.php'; ?> 
+
+<!-- Custom CSS for Sidebar -->
 
 <!-- Custom CSS for Sidebar -->
 <style>

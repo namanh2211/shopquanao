@@ -11,7 +11,6 @@
         </div>
     </div>
 </div>
-<!-- Breadcrumb End -->
 
 <!-- Wishlist Table Start -->
 <div class="container-fluid">
@@ -28,36 +27,40 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                    <tr>
-                        <td class="align-middle">
-                            <img src="img/product-<?php echo $i; ?>.jpg" alt="Product Image" style="width: 50px;">
-                            Product Name
-                        </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <?php endfor; ?>
+                    <?php if (isset($_SESSION['favorite_products']) && count($_SESSION['favorite_products']) > 0): ?>
+                        <?php foreach ($_SESSION['favorite_products'] as $fav_product): ?>
+                            <tr>
+                                <td class="align-middle">
+                                    <img src="<?php echo $fav_product['image_path']; ?>" alt="Product Image" style="width: 50px;">
+                                    <?php echo $fav_product['name']; ?>
+                                </td>
+                                <td class="align-middle">$<?php echo number_format($fav_product['price'], 2); ?></td>
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">$<?php echo number_format($fav_product['price'], 2); ?></td>
+                                <td class="align-middle">
+                                    <a href="favorite_product-xuly.php?action=remove&id=<?php echo $fav_product['id']; ?>" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="5">No favorite products added yet.</td></tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
